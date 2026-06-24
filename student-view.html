@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Seat</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">ExamSeat <span>Pro</span></div>
+    <button class="btn btn-danger" onclick="logout()" style="font-size:13px;">← Logout</button>
+</nav>
+
+<div class="container">
+    <div class="page-title">🪑 My Seat Allocation</div>
+    <div id="studentContent">
+        <div class="card" style="text-align:center; padding:40px;">
+            <p style="color:#888;">Loading your seat details...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+const API = 'http://localhost:8080/api';
+const usn = localStorage.getItem('studentUSN');
+if (!usn) window.location.href = 'index.html';
+
+function logout() {
+    localStorage.removeItem('studentUSN');
+    window.location.href = 'index.html';
+}
+
+async function loadStudentSeat() {
+    try {
+        const res = await fetch(`${API}/allocation/student/${encodeURIComponent(usn)}`);
+        const allocations = await res.json();
+
+        if (!allocations || allocations.length === 0) {
+            document.getElementById('studentContent').innerHTML = `
+            <div class="card" style="text-align:center; padding:60px;">
+                <div style="font-size:60px; margin-bottom:20px;">😕</div>
+                <h2 style="color:#888;">No seat allocated yet!</h2>
+                <p style="color:#555; margin-top:10px;">USN: <strong style="color:#6c63ff;">${usn}</strong></p>
+                <p style="color:#555; margin-top:8px;">Please contact your faculty.</p>
+                <button class="btn btn-primary" onclick="logout()" style="margin-top:20px;">← Go Back</button>
+            </div>`;
+            return;
+        }
+
+        let html = `
+        <div class="card" style="text-align:center; padding:25px; margin-bottom:25px; background:linear-gradient(135deg,#12122a,#0d0d20); border-color:var(--primary);">
+            <div style="font-size:50px; margin-bottom:10px;">🎉</div>
+            <h2 style="color:#00d4ff;">${allocations[0].student.name}</h2>
+            <p style="color:#666; margin-top:8px;">USN: <strong style="color:#6c63ff;">${usn}</strong> | ${allocations[0].student.department} | Year ${allocations[0].student.year}</p>
+            <div style="margin-top:15px; padding:12px; background:rgba(0,230,118,0.1); border-radius:10px; border:1px solid rgba(0,230,118,0.3);">
+                <p style="color:#00e676; font-size:18px; font-weight:700;">✨ All the best for your exam! ✨</p>
+            </div>
+        </div>
+
+        <div class="card" id="printArea">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                <h3 style="color:#6c63ff;">📋 Your Exam Schedule</h3>
+                <button class="btn btn-primary" onclick="window.print()">🖨️ Print</button>
+            </div>
+            <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+    <th>#</th>
+    <th>Code</th>
+    <th>Subject</th>
+    <th>Date</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Dept</th>
+    <th>Hall</th>
+    <th>Row</th>
+    <th>Col</th>
+    <th>Seat No</th>
+</tr>
+                </thead>
+                <tbody>`;
+
+        allocations.forEach((a, i) => {
+    html += `
+    <tr>
+        <td>${i+1}</td>
+        <td><strong style="color:#6c63ff;">${a.exam.subjectCode}</strong></td>
+        <td><strong>${a.exam.subject}</strong></td>
+        <td>${a.exam.examDate}</td>
+        <td>${a.exam.startTime}</td>
+        <td>${a.exam.endTime}</td>
+        <td>${a.exam.department}</td>
+        <td>${a.hall.hallName}</td>
+        <td>Row ${a.seatRow + 1}</td>
+        <td>Col ${a.seatColumn + 1}</td>
+        <td><strong style="color:#00d4ff;">R${a.seatRow+1}C${a.seatColumn+1}</strong></td>
+    </tr>`;
+});
+
+        html += `</tbody></table></div></div>`;
+        document.getElementById('studentContent').innerHTML = html;
+
+    } catch(e) {
+        document.getElementById('studentContent').innerHTML = `
+        <div class="card" style="text-align:center; padding:50px;">
+            <div style="font-size:50px;">❌</div>
+            <h2 style="color:#ff5252; margin-top:15px;">Backend not running!</h2>
+            <p style="color:#666; margin-top:10px;">Start the Spring Boot server first.</p>
+        </div>`;
+    }
+}
+
+loadStudentSeat();
+</script>
+</body>
+</html>

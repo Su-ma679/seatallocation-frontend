@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">ExamSeat <span>Pro</span></div>
+    <ul class="nav-links">
+        <li><a href="dashboard.html">🏠 Dashboard</a></li>
+        <li><a href="students.html" class="active">👨‍🎓 Students</a></li>
+        <li><a href="halls.html">🏫 Halls</a></li>
+        <li><a href="exams.html">📝 Exams</a></li>
+        <li><a href="allocation.html">🪑 Allocation</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="page-title">👨‍🎓 Student Management</div>
+
+    <div class="card">
+        <h3 style="margin-bottom:20px; color:#6c63ff;">Add New Student</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="name" placeholder="Enter name" />
+            </div>
+            <div class="form-group">
+                <label>USN</label>
+                <input type="text" id="rollNo" placeholder="e.g. BR24CS101" />
+            </div>
+            <div class="form-group">
+                <label>Department</label>
+                <select id="department">
+                    <option value="CSE">CSE</option>
+                    <option value="ECE">ECE</option>
+                    <option value="MECH">MECH</option>
+                    <option value="CIVIL">CIVIL</option>
+                    <option value="IT">IT</option>
+                    <option value="EEE">EEE</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Year</label>
+                <select id="year">
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="addStudent()">+ Add Student</button>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+        <h3 style="margin-bottom:10px; color:#6c63ff;">📂 Bulk Upload via CSV</h3>
+        <p style="color:#888; font-size:13px; margin-bottom:5px;">Format: name,usn,department,year (one per line)</p>
+        <p style="color:#555; font-size:12px; margin-bottom:15px;">Example: John,BR24CS001,CSE,4</p>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <input type="file" id="csvFile" accept=".csv" style="color:#888;" />
+            <button class="btn btn-primary" onclick="uploadCSV()">📤 Upload</button>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+            <h3 style="color:#6c63ff;">All Students</h3>
+            <input type="text" id="searchInput" placeholder="🔍 Search name or USN..." onkeyup="searchStudents()"
+                style="background:#0f0f1a; border:1px solid rgba(108,99,255,0.3); border-radius:8px; padding:10px 15px; color:#e0e0e0; width:260px; outline:none;" />
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>USN</th>
+                        <th>Department</th>
+                        <th>Year</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTable"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="confirmModal" class="modal">
+    <div class="modal-box">
+        <div style="font-size:45px; margin-bottom:15px;">⚠️</div>
+        <h3 style="color:white; margin-bottom:8px;">Are you sure?</h3>
+        <p style="color:#666; margin-bottom:25px; font-size:14px;">This cannot be undone!</p>
+        <div style="display:flex; gap:10px; justify-content:center;">
+            <button class="btn btn-danger" onclick="confirmYes()">Yes, Delete</button>
+            <button class="btn btn-primary" onclick="closeConfirm()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="js/students.js"></script>
+</body>
+</html>

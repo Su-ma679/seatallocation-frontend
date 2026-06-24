@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamSeat Pro</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="login-wrapper">
+    <div style="text-align:center; margin-bottom:40px;">
+        <div style="font-size:60px;">🎓</div>
+        <h1 style="font-size:36px; color:white;">ExamSeat <span style="color:#6c63ff;">Pro</span></h1>
+        <p style="color:#888; margin-top:8px;">Automated Exam Seat Allocation System</p>
+    </div>
+
+    <div id="roleSelection" style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+        <div class="role-card" onclick="showStudentLogin()">
+            <div style="font-size:50px;">👨‍🎓</div>
+            <h2>Student</h2>
+            <p>View your seat allocation</p>
+        </div>
+        <div class="role-card" onclick="showFacultyLogin()">
+            <div style="font-size:50px;">👨‍🏫</div>
+            <h2>Faculty</h2>
+            <p>Manage exams and allocation</p>
+        </div>
+    </div>
+
+    <div id="studentLogin" style="display:none; margin-top:30px; width:100%; max-width:420px;">
+        <div class="login-card">
+            <button onclick="backToRole()" style="background:none; border:none; color:#888; cursor:pointer; margin-bottom:15px; font-size:13px;">← Back</button>
+            <h2 style="margin-bottom:5px;">👨‍🎓 Student Login</h2>
+            <p style="color:#888; margin-bottom:25px; font-size:14px;">Enter your USN to view your seat</p>
+            <div class="form-group" style="margin-bottom:20px;">
+                <label>USN</label>
+                <input type="text" id="studentUSN" placeholder="e.g. BR24CS101" />
+            </div>
+            <button class="btn btn-primary" style="width:100%;" onclick="studentLogin()">View My Seat →</button>
+        </div>
+    </div>
+
+    <div id="facultyLogin" style="display:none; margin-top:30px; width:100%; max-width:420px;">
+        <div class="login-card">
+            <button onclick="backToRole()" style="background:none; border:none; color:#888; cursor:pointer; margin-bottom:15px; font-size:13px;">← Back</button>
+            <h2 style="margin-bottom:5px;">👨‍🏫 Faculty Login</h2>
+            <p style="color:#888; margin-bottom:25px; font-size:14px;">Enter your credentials</p>
+            <div class="form-group" style="margin-bottom:15px;">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Enter username" />
+            </div>
+            <div class="form-group" style="margin-bottom:20px;">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter password" />
+            </div>
+            <button class="btn btn-primary" style="width:100%;" onclick="facultyLogin()">Login →</button>
+            <p style="text-align:center; margin-top:15px; font-size:12px; color:#555;">Default: admin / admin123</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function showStudentLogin() {
+    document.getElementById('roleSelection').style.display = 'none';
+    document.getElementById('studentLogin').style.display = 'block';
+    document.getElementById('facultyLogin').style.display = 'none';
+}
+
+function showFacultyLogin() {
+    document.getElementById('roleSelection').style.display = 'none';
+    document.getElementById('facultyLogin').style.display = 'block';
+    document.getElementById('studentLogin').style.display = 'none';
+}
+
+function backToRole() {
+    document.getElementById('roleSelection').style.display = 'flex';
+    document.getElementById('studentLogin').style.display = 'none';
+    document.getElementById('facultyLogin').style.display = 'none';
+}
+
+function studentLogin() {
+    const usn = document.getElementById('studentUSN').value.trim();
+    if (!usn) return alert('Please enter your USN!');
+    localStorage.setItem('studentUSN', usn.toUpperCase());
+    window.location.href = 'student-view.html';
+}
+
+function facultyLogin() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    if (username === 'admin' && password === 'admin123') {
+        window.location.href = 'dashboard.html';
+    } else {
+        alert('Invalid credentials! Use admin / admin123');
+    }
+}
+</script>
+</body>
+</html>

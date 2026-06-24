@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allocation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">ExamSeat <span>Pro</span></div>
+    <ul class="nav-links">
+        <li><a href="dashboard.html">🏠 Dashboard</a></li>
+        <li><a href="students.html">👨‍🎓 Students</a></li>
+        <li><a href="halls.html">🏫 Halls</a></li>
+        <li><a href="exams.html">📝 Exams</a></li>
+        <li><a href="allocation.html" class="active">🪑 Allocation</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="page-title">🪑 Seat Allocation</div>
+
+    <div class="card" style="margin-bottom:20px;">
+        <h3 style="margin-bottom:20px; color:#6c63ff;">Generate Allocation</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Select Exam</label>
+                <select id="examSelect"></select>
+            </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-success" onclick="generateAllocation()">⚡ Generate Seats</button>
+            <button class="btn btn-primary" onclick="viewFullAllocation()">👁 View Full Page</button>
+        </div>
+    </div>
+
+    <div id="allocationResult"></div>
+</div>
+
+<div id="fullPageModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#0a0a14; z-index:9999; overflow-y:auto; padding:20px;">
+    <div style="max-width:1400px; margin:0 auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+            <h2 style="color:#00d4ff;">🏫 Full Seat Allocation View</h2>
+            <div style="display:flex; gap:10px;">
+                <button class="btn btn-primary" onclick="window.print()">🖨️ Print</button>
+                <button class="btn btn-danger" onclick="document.getElementById('fullPageModal').style.display='none'">✕ Close</button>
+            </div>
+        </div>
+        <div id="fullPageContent"></div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="js/allocation.js"></script>
+</body>
+</html>
