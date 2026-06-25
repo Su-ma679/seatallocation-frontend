@@ -6,7 +6,6 @@
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.14-brightgreen?logo=springboot)](https://spring.io/projects/spring-boot)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?logo=mysql)](https://www.mysql.com/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![License](https://img.shields.io/badge/License-MIT-lightgrey)](#license)
 
 ---
 
@@ -153,7 +152,21 @@ Open `frontend/index.html` with Live Server (or any static server) — defaults 
 
 ---
 
-## 🔌 API Reference
+##  Screenshots
+
+### Mainmenu Page
+![Mainmenu Page](screenshots/mainmenu.png)
+
+### Dashboard Page
+![Dashboard Page](screenshots/dashboardpage.png)
+
+### Seat Allocation(Exam to all branch students)
+![seatalloc1](screenshots/seatalloc1.png)
+
+### Seat Allocation(Exam to only one branch students)
+![seatalloc2](screenshots/seatalloc2.png)
+
+##  API Reference
 
 | Method | Endpoint | Description |
 |---|---|---|
