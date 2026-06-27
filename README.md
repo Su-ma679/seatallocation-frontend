@@ -51,7 +51,7 @@ The system ships with two portals:
 
 ---
 
-##  System Architecture
+##  System Architecture and Design
 
 ```
 ┌──────────────────────────────────────┐
@@ -165,6 +165,11 @@ Open `frontend/index.html` with Live Server (or any static server) — defaults 
 
 ### Seat Allocation(Exam to only one branch students)
 ![seatalloc2](screenshots/seatalloc2.png)
+
+##  Demo Video
+
+[![Watch the demo](https://img.youtube.com/vi/5Gi5tZ0wn9c/maxresdefault.jpg)](https://youtu.be/5Gi5tZ0wn9c)
+
 
 ##  API Reference
 
