@@ -75,6 +75,10 @@ The system ships with two portals:
 
 ---
 
+## For Backend Refer
+
+- GitHub link : [https://github.com/Su-ma679/examseatallocation-backend]
+
 ##  Database Schema
 
 | Table | Purpose |
